@@ -1,0 +1,6 @@
+{
+  "name": "Dhanalaxmi Lottery",
+  "description": "Mobile-first, offline-first premium lottery web application with 3-digit lucky draws, multi-country currency wallets, digital receipts, and comprehensive admin controls.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
