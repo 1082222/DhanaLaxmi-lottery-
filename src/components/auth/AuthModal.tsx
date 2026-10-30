@@ -97,44 +97,48 @@ export const AuthModal: React.FC = () => {
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-4 bg-black/85 backdrop-blur-md animate-in fade-in duration-200">
-      <div className="w-full max-w-md bg-gradient-to-b from-[#2A070E] via-[#1C050A] to-[#120306] border-2 border-[#D4A017] rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[92vh] animate-in zoom-in-95 duration-200">
-        {/* Header */}
-        <div className="px-5 py-4 bg-gradient-to-r from-[#4A0E18] via-[#5B101D] to-[#320912] border-b border-[#D4A017]/40 flex items-center justify-between">
+      <div className="w-full max-w-md bg-gradient-to-b from-[#0A224E] via-[#071833] to-[#050E1D] border-2 border-[#1E40AF] rounded-3xl shadow-2xl overflow-hidden flex flex-col max-h-[92vh] animate-in zoom-in-95 duration-200">
+        {/* Header with Uploaded Logo */}
+        <div className="px-5 py-4 bg-gradient-to-r from-[#0D2E68] via-[#0B254E] to-[#071833] border-b border-[#1E40AF]/50 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#F5C542] to-[#D4A017] p-0.5 shadow-md shadow-[#D4A017]/30 flex items-center justify-center">
-              <div className="w-full h-full bg-[#320912] rounded-[14px] flex items-center justify-center">
-                <Sparkles className="w-5 h-5 text-[#F5C542]" />
+            <div className="w-10 h-10 rounded-2xl bg-gradient-to-br from-[#1E40AF] via-[#0284C7] to-[#38BDF8] p-0.5 shadow-md shadow-[#1D4ED8]/30 flex items-center justify-center">
+              <div className="w-full h-full bg-[#071833] rounded-[14px] p-0.5 flex items-center justify-center overflow-hidden">
+                <img
+                  src="/assets/aistudio/Logo_of_the_Government_Lottery_Office_f8d13cfa.svg"
+                  alt="Thailand Lottery"
+                  className="w-full h-full object-contain"
+                />
               </div>
             </div>
             <div>
-              <h3 className="font-black text-base text-[#FFF8E7] font-display leading-tight tracking-wide">
-                DHANALAXMI LOTTERY
+              <h3 className="font-black text-base text-[#F0F7FF] font-display leading-tight tracking-wide">
+                THAILAND LOTTERY
               </h3>
-              <p className="text-[11px] text-[#F8E7B0]/80 font-medium">
+              <p className="text-[11px] text-[#93C5FD] font-medium">
                 {authMode === 'REGISTER'
-                  ? 'Create New Account'
-                  : 'Sign In (User & Admin)'}
+                  ? 'Create New Player Account'
+                  : 'Sign In (Player & Admin)'}
               </p>
             </div>
           </div>
           <button
             id="auth-modal-close-btn"
             onClick={() => setIsAuthModalOpen(false)}
-            className="p-1.5 rounded-full text-[#F8E7B0]/70 hover:text-white hover:bg-[#6B1524] transition-colors"
+            className="p-1.5 rounded-full text-[#93C5FD] hover:text-white hover:bg-[#1E40AF] transition-colors"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
         {/* UNIFIED INTERFACE: Only 2 simple tabs (Login or Register) */}
-        <div className="flex border-b border-[#7F1D2D]/60 bg-[#171114] text-xs font-bold">
+        <div className="flex border-b border-[#1E40AF]/50 bg-[#050E1D] text-xs font-bold">
           <button
             id="auth-tab-login"
             onClick={() => setAuthMode('LOGIN')}
             className={`flex-1 py-3 text-center transition-all flex items-center justify-center gap-2 ${
               authMode !== 'REGISTER'
-                ? 'text-[#F5C542] border-b-2 border-[#F5C542] bg-[#4A0E18]/60 font-black'
-                : 'text-[#F8E7B0]/60 hover:text-[#FFF8E7]'
+                ? 'text-[#38BDF8] border-b-2 border-[#38BDF8] bg-[#0D2E68]/70 font-black'
+                : 'text-[#93C5FD]/60 hover:text-white'
             }`}
           >
             <LogIn className="w-4 h-4" />
@@ -145,8 +149,8 @@ export const AuthModal: React.FC = () => {
             onClick={() => setAuthMode('REGISTER')}
             className={`flex-1 py-3 text-center transition-all flex items-center justify-center gap-2 ${
               authMode === 'REGISTER'
-                ? 'text-[#F5C542] border-b-2 border-[#F5C542] bg-[#4A0E18]/60 font-black'
-                : 'text-[#F8E7B0]/60 hover:text-[#FFF8E7]'
+                ? 'text-[#38BDF8] border-b-2 border-[#38BDF8] bg-[#0D2E68]/70 font-black'
+                : 'text-[#93C5FD]/60 hover:text-white'
             }`}
           >
             <UserPlus className="w-4 h-4" />
@@ -169,11 +173,11 @@ export const AuthModal: React.FC = () => {
             <form onSubmit={handleLoginSubmit} className="space-y-4">
               {/* Mobile / ID Field */}
               <div>
-                <label className="block text-xs font-bold text-[#F8E7B0] mb-1.5">
+                <label className="block text-xs font-bold text-[#BAE6FD] mb-1.5">
                   Mobile Number
                 </label>
                 <div className="relative">
-                  <Phone className="w-4 h-4 text-[#D4A017] absolute left-3.5 top-1/2 -translate-y-1/2" />
+                  <Phone className="w-4 h-4 text-[#38BDF8] absolute left-3.5 top-1/2 -translate-y-1/2" />
                   <input
                     id="login-mobile-input"
                     type="text"
@@ -181,18 +185,18 @@ export const AuthModal: React.FC = () => {
                     value={loginMobile}
                     onChange={(e) => setLoginMobile(e.target.value)}
                     placeholder="Enter phone number"
-                    className="w-full py-3 pl-10 pr-4 bg-[#2A070E] border-2 border-[#D4A017]/40 rounded-xl text-[#FFF8E7] text-sm font-semibold focus:outline-none focus:border-[#F5C542] placeholder:text-stone-500"
+                    className="w-full py-3 pl-10 pr-4 bg-[#050E1D] border-2 border-[#1E40AF]/60 rounded-xl text-[#F0F7FF] text-sm font-semibold focus:outline-none focus:border-[#38BDF8] placeholder:text-slate-500"
                   />
                 </div>
               </div>
 
               {/* Password Field */}
               <div>
-                <label className="block text-xs font-bold text-[#F8E7B0] mb-1.5">
+                <label className="block text-xs font-bold text-[#BAE6FD] mb-1.5">
                   Password
                 </label>
                 <div className="relative">
-                  <Lock className="w-4 h-4 text-[#D4A017] absolute left-3.5 top-1/2 -translate-y-1/2" />
+                  <Lock className="w-4 h-4 text-[#38BDF8] absolute left-3.5 top-1/2 -translate-y-1/2" />
                   <input
                     id="login-password-input"
                     type={showLoginPassword ? 'text' : 'password'}
@@ -200,34 +204,34 @@ export const AuthModal: React.FC = () => {
                     value={loginPassword}
                     onChange={(e) => setLoginPassword(e.target.value)}
                     placeholder="Enter your password"
-                    className="w-full py-3 pl-10 pr-11 bg-[#2A070E] border-2 border-[#D4A017]/40 rounded-xl text-[#FFF8E7] text-sm font-semibold focus:outline-none focus:border-[#F5C542] placeholder:text-stone-500"
+                    className="w-full py-3 pl-10 pr-11 bg-[#050E1D] border-2 border-[#1E40AF]/60 rounded-xl text-[#F0F7FF] text-sm font-semibold focus:outline-none focus:border-[#38BDF8] placeholder:text-slate-500"
                   />
                   <button
                     type="button"
                     onClick={() => setShowLoginPassword(!showLoginPassword)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-[#D4A017] hover:text-[#F5C542] p-1"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-[#38BDF8] hover:text-[#38BDF8] p-1"
                   >
                     {showLoginPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                   </button>
                 </div>
               </div>
 
-              {/* Big Gold Login Button */}
+              {/* Royal Blue Login Button */}
               <button
                 id="login-submit-btn"
                 type="submit"
                 disabled={loading}
-                className="w-full py-3.5 rounded-2xl bg-gradient-to-r from-[#D4A017] via-[#F5C542] to-[#D4A017] hover:brightness-110 active:scale-[0.99] text-[#320912] font-black text-sm tracking-wider uppercase shadow-xl shadow-[#D4A017]/25 transition-all disabled:opacity-50"
+                className="w-full py-3.5 rounded-2xl bg-gradient-to-r from-[#1D4ED8] via-[#2563EB] to-[#0284C7] hover:brightness-110 active:scale-[0.99] text-white font-black text-sm tracking-wider uppercase shadow-xl shadow-[#1D4ED8]/30 transition-all disabled:opacity-50 border border-[#38BDF8]/40"
               >
                 {loading ? 'Signing In...' : 'LOGIN NOW'}
               </button>
 
               <div className="text-center pt-2">
-                <span className="text-xs text-[#F8E7B0]/60">Don't have an account? </span>
+                <span className="text-xs text-[#93C5FD]/60">Don't have an account? </span>
                 <button
                   type="button"
                   onClick={() => setAuthMode('REGISTER')}
-                  className="text-xs font-black text-[#F5C542] hover:underline"
+                  className="text-xs font-black text-[#38BDF8] hover:underline"
                 >
                   Create Account Here
                 </button>
@@ -239,18 +243,18 @@ export const AuthModal: React.FC = () => {
           {authMode === 'REGISTER' && (
             <form onSubmit={handleRegisterSubmit} className="space-y-3">
               {/* Notice: Starting wallet balance is 0 */}
-              <div className="p-2.5 rounded-xl bg-[#320912] border border-[#D4A017]/40 text-center">
-                <span className="text-xs font-bold text-[#F5C542]">New Wallet Balance: 0.00</span>
-                <p className="text-[10px] text-[#F8E7B0]/80">Account starts with 0 balance. Add funds anytime to play!</p>
+              <div className="p-2.5 rounded-xl bg-[#071833] border border-[#1E40AF]/60 text-center">
+                <span className="text-xs font-bold text-[#38BDF8]">New Wallet Balance: 0.00</span>
+                <p className="text-[10px] text-[#BAE6FD]/80">Account starts with 0 balance. Add funds anytime to play!</p>
               </div>
 
               {/* Country Selection */}
               <div>
-                <label className="block text-xs font-bold text-[#F8E7B0] mb-1">
+                <label className="block text-xs font-bold text-[#BAE6FD] mb-1">
                   Country & Currency
                 </label>
                 <div className="relative">
-                  <Globe className="w-4 h-4 text-[#D4A017] absolute left-3 top-1/2 -translate-y-1/2" />
+                  <Globe className="w-4 h-4 text-[#38BDF8] absolute left-3 top-1/2 -translate-y-1/2" />
                   <select
                     id="register-country-select"
                     value={regCountry}
@@ -259,7 +263,7 @@ export const AuthModal: React.FC = () => {
                       setRegCountry(code);
                       setSelectedCountry(code);
                     }}
-                    className="w-full py-2.5 pl-9 pr-3 bg-[#2A070E] border-2 border-[#D4A017]/40 rounded-xl text-[#FFF8E7] text-xs font-bold focus:outline-none focus:border-[#F5C542]"
+                    className="w-full py-2.5 pl-9 pr-3 bg-[#050E1D] border-2 border-[#1E40AF]/60 rounded-xl text-[#F0F7FF] text-xs font-bold focus:outline-none focus:border-[#38BDF8]"
                   >
                     {COUNTRY_LIST.map((c) => (
                       <option key={c.code} value={c.code}>
@@ -272,7 +276,7 @@ export const AuthModal: React.FC = () => {
 
               {/* Full Name */}
               <div>
-                <label className="block text-xs font-bold text-[#F8E7B0] mb-1">
+                <label className="block text-xs font-bold text-[#BAE6FD] mb-1">
                   Full Name *
                 </label>
                 <input
@@ -282,17 +286,17 @@ export const AuthModal: React.FC = () => {
                   value={regFullName}
                   onChange={(e) => setRegFullName(e.target.value)}
                   placeholder="e.g. John Doe"
-                  className="w-full py-2.5 px-3 bg-[#2A070E] border-2 border-[#D4A017]/40 rounded-xl text-[#FFF8E7] text-xs font-semibold focus:outline-none focus:border-[#F5C542]"
+                  className="w-full py-2.5 px-3 bg-[#050E1D] border-2 border-[#1E40AF]/60 rounded-xl text-[#F0F7FF] text-xs font-semibold focus:outline-none focus:border-[#38BDF8]"
                 />
               </div>
 
               {/* Mobile */}
               <div>
-                <label className="block text-xs font-bold text-[#F8E7B0] mb-1">
+                <label className="block text-xs font-bold text-[#BAE6FD] mb-1">
                   Mobile Number *
                 </label>
                 <div className="relative">
-                  <Phone className="w-4 h-4 text-[#D4A017] absolute left-3 top-1/2 -translate-y-1/2" />
+                  <Phone className="w-4 h-4 text-[#38BDF8] absolute left-3 top-1/2 -translate-y-1/2" />
                   <input
                     id="register-mobile-input"
                     type="tel"
@@ -300,7 +304,7 @@ export const AuthModal: React.FC = () => {
                     value={regMobile}
                     onChange={(e) => setRegMobile(e.target.value)}
                     placeholder={`e.g. ${currentCountryConfig.phonePrefix} 9876543210`}
-                    className="w-full py-2.5 pl-9 pr-3 bg-[#2A070E] border-2 border-[#D4A017]/40 rounded-xl text-[#FFF8E7] text-xs font-semibold focus:outline-none focus:border-[#F5C542]"
+                    className="w-full py-2.5 pl-9 pr-3 bg-[#050E1D] border-2 border-[#1E40AF]/60 rounded-xl text-[#F0F7FF] text-xs font-semibold focus:outline-none focus:border-[#38BDF8]"
                   />
                 </div>
               </div>
@@ -308,7 +312,7 @@ export const AuthModal: React.FC = () => {
               {/* Password & Confirm */}
               <div className="grid grid-cols-2 gap-2">
                 <div>
-                  <label className="block text-[11px] font-bold text-[#F8E7B0] mb-1">
+                  <label className="block text-[11px] font-bold text-[#BAE6FD] mb-1">
                     Password *
                   </label>
                   <input
@@ -318,11 +322,11 @@ export const AuthModal: React.FC = () => {
                     value={regPassword}
                     onChange={(e) => setRegPassword(e.target.value)}
                     placeholder="Min 6 characters"
-                    className="w-full py-2 px-3 bg-[#2A070E] border border-[#D4A017]/40 rounded-xl text-[#FFF8E7] text-xs focus:outline-none focus:border-[#F5C542]"
+                    className="w-full py-2 px-3 bg-[#050E1D] border border-[#1E40AF]/60 rounded-xl text-[#F0F7FF] text-xs focus:outline-none focus:border-[#38BDF8]"
                   />
                 </div>
                 <div>
-                  <label className="block text-[11px] font-bold text-[#F8E7B0] mb-1">
+                  <label className="block text-[11px] font-bold text-[#BAE6FD] mb-1">
                     Confirm Password *
                   </label>
                   <input
@@ -332,15 +336,15 @@ export const AuthModal: React.FC = () => {
                     value={regConfirmPassword}
                     onChange={(e) => setRegConfirmPassword(e.target.value)}
                     placeholder="Confirm password"
-                    className="w-full py-2 px-3 bg-[#2A070E] border border-[#D4A017]/40 rounded-xl text-[#FFF8E7] text-xs focus:outline-none focus:border-[#F5C542]"
+                    className="w-full py-2 px-3 bg-[#050E1D] border border-[#1E40AF]/60 rounded-xl text-[#F0F7FF] text-xs focus:outline-none focus:border-[#38BDF8]"
                   />
                 </div>
               </div>
 
               {/* Bank Details for Payouts (Locked after creation) */}
-              <div className="pt-2 border-t border-[#7F1D2D]/40 space-y-2">
+              <div className="pt-2 border-t border-[#1E40AF]/50 space-y-2">
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-1.5 text-xs font-bold text-[#F5C542]">
+                  <div className="flex items-center gap-1.5 text-xs font-bold text-[#38BDF8]">
                     <CreditCard className="w-3.5 h-3.5" />
                     <span>Bank Account for Payouts</span>
                   </div>
@@ -350,14 +354,14 @@ export const AuthModal: React.FC = () => {
                   </span>
                 </div>
 
-                <div className="p-2.5 rounded-xl bg-[#1A0408] border border-[#D4A017]/30 text-[11px] text-[#F8E7B0]/80">
-                  <span className="font-bold text-[#F5C542]">Security Notice:</span> Bank details and profile information cannot be changed after creating the account. Please enter your genuine payout details.
+                <div className="p-2.5 rounded-xl bg-[#040D1A] border border-[#1E40AF]/50 text-[11px] text-[#BAE6FD]/80">
+                  <span className="font-bold text-[#38BDF8]">Security Notice:</span> Bank details and profile information cannot be changed after creating the account. Please enter your genuine payout details.
                 </div>
 
                 <div className="space-y-2 pt-1">
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                     <div>
-                      <label className="block text-[10px] font-bold text-[#F8E7B0]/90 mb-0.5">
+                      <label className="block text-[10px] font-bold text-[#BAE6FD]/90 mb-0.5">
                         Account Holder Name *
                       </label>
                       <input
@@ -366,11 +370,11 @@ export const AuthModal: React.FC = () => {
                         value={regAccountHolder}
                         onChange={(e) => setRegAccountHolder(e.target.value)}
                         placeholder="e.g. Full Legal Name"
-                        className="w-full py-2 px-3 bg-[#2A070E] border border-[#D4A017]/30 rounded-lg text-[#FFF8E7] text-xs focus:outline-none focus:border-[#F5C542]"
+                        className="w-full py-2 px-3 bg-[#050E1D] border border-[#1E40AF]/50 rounded-lg text-[#F0F7FF] text-xs focus:outline-none focus:border-[#38BDF8]"
                       />
                     </div>
                     <div>
-                      <label className="block text-[10px] font-bold text-[#F8E7B0]/90 mb-0.5">
+                      <label className="block text-[10px] font-bold text-[#BAE6FD]/90 mb-0.5">
                         Bank Name *
                       </label>
                       <input
@@ -378,15 +382,15 @@ export const AuthModal: React.FC = () => {
                         required
                         value={regBankName}
                         onChange={(e) => setRegBankName(e.target.value)}
-                        placeholder="e.g. National Bank / SBI"
-                        className="w-full py-2 px-3 bg-[#2A070E] border border-[#D4A017]/30 rounded-lg text-[#FFF8E7] text-xs focus:outline-none focus:border-[#F5C542]"
+                        placeholder="e.g. Bangkok Bank / SCB / Kasikorn"
+                        className="w-full py-2 px-3 bg-[#050E1D] border border-[#1E40AF]/50 rounded-lg text-[#F0F7FF] text-xs focus:outline-none focus:border-[#38BDF8]"
                       />
                     </div>
                   </div>
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
                     <div>
-                      <label className="block text-[10px] font-bold text-[#F8E7B0]/90 mb-0.5">
+                      <label className="block text-[10px] font-bold text-[#BAE6FD]/90 mb-0.5">
                         Account Number / IBAN *
                       </label>
                       <input
@@ -395,19 +399,19 @@ export const AuthModal: React.FC = () => {
                         value={regIban}
                         onChange={(e) => setRegIban(e.target.value)}
                         placeholder="Account or IBAN number"
-                        className="w-full py-2 px-3 bg-[#2A070E] border border-[#D4A017]/30 rounded-lg text-[#FFF8E7] text-xs font-mono focus:outline-none focus:border-[#F5C542]"
+                        className="w-full py-2 px-3 bg-[#050E1D] border border-[#1E40AF]/50 rounded-lg text-[#F0F7FF] text-xs font-mono focus:outline-none focus:border-[#38BDF8]"
                       />
                     </div>
                     <div>
-                      <label className="block text-[10px] font-bold text-[#F8E7B0]/90 mb-0.5">
-                        IFSC / SWIFT Code
+                      <label className="block text-[10px] font-bold text-[#BAE6FD]/90 mb-0.5">
+                        IFSC / SWIFT / Branch Code
                       </label>
                       <input
                         type="text"
                         value={regSwift}
                         onChange={(e) => setRegSwift(e.target.value)}
-                        placeholder="IFSC or SWIFT/BIC"
-                        className="w-full py-2 px-3 bg-[#2A070E] border border-[#D4A017]/30 rounded-lg text-[#FFF8E7] text-xs font-mono focus:outline-none focus:border-[#F5C542]"
+                        placeholder="SWIFT, IFSC or Branch"
+                        className="w-full py-2 px-3 bg-[#050E1D] border border-[#1E40AF]/50 rounded-lg text-[#F0F7FF] text-xs font-mono focus:outline-none focus:border-[#38BDF8]"
                       />
                     </div>
                   </div>
@@ -419,17 +423,17 @@ export const AuthModal: React.FC = () => {
                 id="register-submit-btn"
                 type="submit"
                 disabled={loading}
-                className="w-full py-3.5 rounded-2xl bg-gradient-to-r from-[#D4A017] via-[#F5C542] to-[#D4A017] hover:brightness-110 text-[#320912] font-black text-sm tracking-wider uppercase shadow-xl shadow-[#D4A017]/25 transition-all disabled:opacity-50 mt-2"
+                className="w-full py-3.5 rounded-2xl bg-gradient-to-r from-[#1D4ED8] via-[#2563EB] to-[#0284C7] hover:brightness-110 text-white font-black text-sm tracking-wider uppercase shadow-xl shadow-[#1D4ED8]/30 transition-all disabled:opacity-50 mt-2 border border-[#38BDF8]/40"
               >
                 {loading ? 'Creating Account...' : 'CREATE ACCOUNT'}
               </button>
 
               <div className="text-center pt-1">
-                <span className="text-xs text-[#F8E7B0]/60">Already have an account? </span>
+                <span className="text-xs text-[#93C5FD]/60">Already have an account? </span>
                 <button
                   type="button"
                   onClick={() => setAuthMode('LOGIN')}
-                  className="text-xs font-black text-[#F5C542] hover:underline"
+                  className="text-xs font-black text-[#38BDF8] hover:underline"
                 >
                   LOGIN HERE
                 </button>

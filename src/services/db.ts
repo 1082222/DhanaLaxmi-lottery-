@@ -20,7 +20,8 @@ import {
 } from '../types';
 import { SUPPORTED_COUNTRIES } from '../constants/countries';
 
-const DB_KEY = 'dhanalaxmi_lottery_v1';
+const DB_KEY = 'thailand_lottery_v1';
+const LEGACY_DB_KEY = 'dhanalaxmi_lottery_v1';
 
 interface DBSchema {
   version: string;
@@ -36,12 +37,12 @@ interface DBSchema {
 }
 
 const DEFAULT_SETTINGS: AppSettings = {
-  lotteryName: 'Dhanalaxmi Lottery',
-  winningMultiplier: 500, // 1 currency stake gives 500 currency on winning
-  drawSchedule: 'Daily Draw at 08:00 PM GST',
-  activeDrawId: 'DL-DRAW-104',
-  activeDrawDate: '2026-09-25 20:00 GST',
-  supportedCurrencies: ['INR', 'SAR', 'KWD', 'OMR', 'BHD', 'AED'],
+  lotteryName: 'Thailand Lottery Result',
+  winningMultiplier: 400, // 1 currency stake gives 400 currency on winning (1 x 400 Prize Money)
+  drawSchedule: 'Continuous Live Draws',
+  activeDrawId: 'TL-DRAW-104',
+  activeDrawDate: '',
+  supportedCurrencies: ['THB', 'INR', 'SAR', 'KWD', 'OMR', 'BHD', 'AED'],
   minStake: 1,
   maxStake: 10000,
   version: '1.0.0',
@@ -56,7 +57,7 @@ function createInitialDatabase(): DBSchema {
       id: 'adm_master',
       username: '8519991082',
       password: 'Pranay@1234',
-      name: 'Dhanalaxmi Administrator',
+      name: 'Thailand Lottery Administrator',
       role: 'ADMIN',
     },
   ];
@@ -66,7 +67,7 @@ function createInitialDatabase(): DBSchema {
   const drawResults: DrawResult[] = [
     {
       id: 'res_101',
-      drawNumber: 'Draw #DL-101',
+      drawNumber: 'Draw #TL-101',
       drawDate: '2026-09-04 20:00 GST',
       winningNumber: '389',
       totalEntries: 420,
@@ -77,7 +78,7 @@ function createInitialDatabase(): DBSchema {
     },
     {
       id: 'res_102',
-      drawNumber: 'Draw #DL-102',
+      drawNumber: 'Draw #TL-102',
       drawDate: '2026-09-11 20:00 GST',
       winningNumber: '777',
       totalEntries: 580,
@@ -88,7 +89,7 @@ function createInitialDatabase(): DBSchema {
     },
     {
       id: 'res_103',
-      drawNumber: 'Draw #DL-103',
+      drawNumber: 'Draw #TL-103',
       drawDate: '2026-09-18 20:00 GST',
       winningNumber: '512',
       totalEntries: 640,
@@ -121,7 +122,16 @@ function createInitialDatabase(): DBSchema {
 class LocalStorageDB {
   private getDB(): DBSchema {
     try {
-      const raw = localStorage.getItem(DB_KEY);
+      let raw = localStorage.getItem(DB_KEY);
+      if (!raw) {
+        // Check if legacy database exists to migrate user accounts and history
+        const legacyRaw = localStorage.getItem(LEGACY_DB_KEY);
+        if (legacyRaw) {
+          raw = legacyRaw;
+          localStorage.removeItem(LEGACY_DB_KEY);
+        }
+      }
+
       if (!raw) {
         const initial = createInitialDatabase();
         this.saveDB(initial);
@@ -130,6 +140,19 @@ class LocalStorageDB {
       const parsed = JSON.parse(raw) as DBSchema;
 
       let changed = false;
+
+      // Update lottery brand settings to Thailand Lottery Result and 400x multiplier
+      if (!parsed.settings || parsed.settings.lotteryName !== 'Thailand Lottery Result' || parsed.settings.winningMultiplier !== 400) {
+        parsed.settings = {
+          ...(parsed.settings || DEFAULT_SETTINGS),
+          lotteryName: 'Thailand Lottery Result',
+          winningMultiplier: 400,
+          activeDrawDate: '',
+          activeDrawId: (parsed.settings?.activeDrawId || 'TL-DRAW-104').replace('DL-DRAW-', 'TL-DRAW-'),
+          supportedCurrencies: ['THB', 'INR', 'SAR', 'KWD', 'OMR', 'BHD', 'AED'],
+        };
+        changed = true;
+      }
 
       // Purge legacy demo users and tickets from localStorage
       const demoUserIds = ['usr_tariq_kw', 'usr_fahad_sa', 'usr_priya_ae'];
@@ -145,12 +168,6 @@ class LocalStorageDB {
         changed = true;
       }
 
-      // Auto-update winning multiplier to 500 as requested
-      if (!parsed.settings || parsed.settings.winningMultiplier !== 500) {
-        parsed.settings = { ...(parsed.settings || DEFAULT_SETTINGS), winningMultiplier: 500 };
-        changed = true;
-      }
-
       // Ensure admin with 8519991082 exists with password Pranay@1234
       if (!parsed.admins) parsed.admins = [];
       const adminIdx = parsed.admins.findIndex((a) => a.username === '8519991082');
@@ -159,13 +176,19 @@ class LocalStorageDB {
           id: 'adm_master',
           username: '8519991082',
           password: 'Pranay@1234',
-          name: 'Dhanalaxmi Administrator',
+          name: 'Thailand Lottery Administrator',
           role: 'ADMIN',
         });
         changed = true;
-      } else if (parsed.admins[adminIdx].password !== 'Pranay@1234') {
-        parsed.admins[adminIdx].password = 'Pranay@1234';
-        changed = true;
+      } else {
+        if (parsed.admins[adminIdx].password !== 'Pranay@1234') {
+          parsed.admins[adminIdx].password = 'Pranay@1234';
+          changed = true;
+        }
+        if (parsed.admins[adminIdx].name !== 'Thailand Lottery Administrator') {
+          parsed.admins[adminIdx].name = 'Thailand Lottery Administrator';
+          changed = true;
+        }
       }
 
       if (changed) {
@@ -230,10 +253,10 @@ class LocalStorageDB {
     const welcomeNotif: AppNotification = {
       id: `notif_${Date.now()}`,
       userId: newUser.id,
-      title: 'Welcome to Dhanalaxmi Lottery',
-      message: `Account created successfully! Your starting balance is 0.00 ${params.currency}. Add funds to start playing and win 500x!`,
+      title: 'Welcome to Thailand Lottery Result',
+      message: `Account created successfully! Your starting balance is 0.00 ${params.currency}. Add funds to start playing and win 1 × 400 Prize Money!`,
       type: 'WALLET',
-      timestamp: new Date().toISOString().replace('T', ' ').substring(0, 16),
+      timestamp: '',
       read: false,
     };
 
@@ -284,7 +307,7 @@ class LocalStorageDB {
           id: 'adm_master',
           username: '8519991082',
           password: 'Pranay@1234',
-          name: 'Dhanalaxmi Administrator',
+          name: 'Thailand Lottery Administrator',
           role: 'ADMIN',
         };
         db.admins.unshift(seededAdmin);
@@ -450,12 +473,12 @@ class LocalStorageDB {
 
     // 4. Generate unique Ticket ID & Entry ID
     const randomTicketNumber = Math.floor(100000 + Math.random() * 900000);
-    const ticketNumber = `DL-${randomTicketNumber}`;
+    const ticketNumber = `TL-${randomTicketNumber}`;
     const entryId = `EN-${Math.floor(1000 + Math.random() * 9000)}`;
 
-    const multiplier = db.settings.winningMultiplier || 500;
+    const multiplier = db.settings.winningMultiplier || 400;
     const potentialWinning = Number((params.stakeAmount * multiplier).toFixed(2));
-    const nowTimestamp = new Date().toISOString().replace('T', ' ').substring(0, 16);
+    const nowTimestamp = '';
 
     const newEntry: LotteryEntry = {
       id: `ticket_${Date.now()}_${Math.floor(Math.random() * 1000)}`,
@@ -651,7 +674,7 @@ class LocalStorageDB {
     // Save Draw Result
     const newDrawResult: DrawResult = {
       id: currentDrawId,
-      drawNumber: currentDrawId.replace('DL-DRAW-', 'Draw #DL-'),
+      drawNumber: currentDrawId.replace('TL-DRAW-', 'Draw #TL-').replace('DL-DRAW-', 'Draw #TL-'),
       drawDate: drawDateStr,
       winningNumber: cleaned,
       totalEntries: pendingTickets.length,
@@ -667,7 +690,7 @@ class LocalStorageDB {
     // Roll active draw to next sequence
     const currentNumMatch = currentDrawId.match(/\d+$/);
     const nextNum = currentNumMatch ? parseInt(currentNumMatch[0], 10) + 1 : 105;
-    db.settings.activeDrawId = `DL-DRAW-${nextNum}`;
+    db.settings.activeDrawId = `TL-DRAW-${nextNum}`;
     const nextFriday = new Date();
     nextFriday.setDate(nextFriday.getDate() + 7);
     db.settings.activeDrawDate = `${nextFriday.toISOString().split('T')[0]} 20:00 GST`;

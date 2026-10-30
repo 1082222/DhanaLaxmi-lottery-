@@ -1,6 +1,14 @@
 import { CountryConfig, SupportedCountryCode, CurrencyCode } from '../types';
 
 export const SUPPORTED_COUNTRIES: Record<SupportedCountryCode, CountryConfig> = {
+  TH: {
+    code: 'TH',
+    name: 'Thailand',
+    flag: '🇹🇭',
+    currency: 'THB',
+    currencySymbol: '฿',
+    phonePrefix: '+66',
+  },
   IN: {
     code: 'IN',
     name: 'India',
@@ -53,10 +61,12 @@ export const SUPPORTED_COUNTRIES: Record<SupportedCountryCode, CountryConfig> = 
 
 export const COUNTRY_LIST = Object.values(SUPPORTED_COUNTRIES);
 
-export const DEFAULT_COUNTRY: SupportedCountryCode = 'IN';
+export const DEFAULT_COUNTRY: SupportedCountryCode = 'TH';
 
 export function getCurrencySymbol(curr: CurrencyCode): string {
   switch (curr) {
+    case 'THB':
+      return '฿';
     case 'INR':
       return '₹';
     case 'KWD':
@@ -75,8 +85,10 @@ export function getCurrencySymbol(curr: CurrencyCode): string {
 }
 
 export function formatCurrency(amount: number, curr: CurrencyCode): string {
-  const precision = curr === 'KWD' || curr === 'OMR' || curr === 'BHD' ? 3 : (curr === 'INR' ? 0 : 2);
-  const symbol = curr === 'INR' ? '₹' : '';
+  const precision = curr === 'KWD' || curr === 'OMR' || curr === 'BHD' ? 3 : (curr === 'INR' || curr === 'THB' ? 0 : 2);
+  if (curr === 'THB') {
+    return `฿${Math.round(amount).toLocaleString('en-US')}`;
+  }
   if (curr === 'INR') {
     return `₹${Math.round(amount).toLocaleString('en-IN')}`;
   }

@@ -1,10 +1,10 @@
 /**
- * Types & Interfaces for Dhanalaxmi Lottery
+ * Types & Interfaces for Thailand Lottery Result
  */
 
-export type SupportedCountryCode = 'IN' | 'SA' | 'KW' | 'OM' | 'BH' | 'AE';
+export type SupportedCountryCode = 'TH' | 'IN' | 'SA' | 'KW' | 'OM' | 'BH' | 'AE';
 
-export type CurrencyCode = 'INR' | 'SAR' | 'KWD' | 'OMR' | 'BHD' | 'AED';
+export type CurrencyCode = 'THB' | 'INR' | 'SAR' | 'KWD' | 'OMR' | 'BHD' | 'AED';
 
 export interface CountryConfig {
   code: SupportedCountryCode;
@@ -94,7 +94,7 @@ export type TicketStatus = 'PENDING' | 'WINNER' | 'NOT_MATCHED';
 
 export interface LotteryEntry {
   id: string;
-  ticketNumber: string; // e.g., "DL-829145"
+  ticketNumber: string; // e.g., "TL-829145"
   entryId: string;
   userId: string;
   userName: string;
@@ -115,7 +115,7 @@ export interface LotteryEntry {
 
 export interface DrawResult {
   id: string;
-  drawNumber: string; // e.g., "Draw #DL-104"
+  drawNumber: string; // e.g., "Draw #TL-104"
   drawDate: string;
   winningNumber: string; // "777"
   totalEntries: number;

@@ -14,21 +14,21 @@ export const ToastContainer: React.FC = () => {
           key={toast.id}
           className={`pointer-events-auto flex items-center justify-between p-3.5 rounded-2xl shadow-xl border backdrop-blur-md transition-all transform animate-in slide-in-from-top-4 duration-300 ${
             toast.type === 'success'
-              ? 'bg-[#320912]/95 border-[#D4A017] text-[#FFF8E7]'
+              ? 'bg-[#071833]/95 border-[#38BDF8] text-[#F0F7FF]'
               : toast.type === 'error'
-              ? 'bg-[#4A0E18]/95 border-red-500/60 text-red-100'
-              : 'bg-[#171114]/95 border-[#7F1D2D] text-[#FFF8E7]'
+              ? 'bg-[#450a0a]/95 border-red-500/60 text-red-100'
+              : 'bg-[#050E1D]/95 border-[#1E40AF] text-[#F0F7FF]'
           }`}
         >
           <div className="flex items-center gap-3">
-            {toast.type === 'success' && <CheckCircle2 className="w-5 h-5 text-[#F5C542] shrink-0" />}
+            {toast.type === 'success' && <CheckCircle2 className="w-5 h-5 text-[#38BDF8] shrink-0" />}
             {toast.type === 'error' && <AlertCircle className="w-5 h-5 text-red-400 shrink-0" />}
-            {toast.type === 'info' && <Info className="w-5 h-5 text-[#D4A017] shrink-0" />}
+            {toast.type === 'info' && <Info className="w-5 h-5 text-[#38BDF8] shrink-0" />}
             <span className="text-xs sm:text-sm font-medium leading-snug">{toast.message}</span>
           </div>
           <button
             onClick={() => dismissToast(toast.id)}
-            className="p-1 hover:bg-white/10 rounded-lg text-[#F8E7B0]/70 hover:text-[#FFF8E7] transition-colors ml-2"
+            className="p-1 hover:bg-white/10 rounded-lg text-[#93C5FD] hover:text-white transition-colors ml-2"
           >
             <X className="w-4 h-4" />
           </button>

@@ -6,7 +6,6 @@ import { Home, Ticket, Trophy, User, Sparkles } from 'lucide-react';
 export const BottomNav: React.FC = () => {
   const { activeTab, setActiveTab, setUserSubView, isAdminMode } = useApp();
 
-  // If in admin portal, don't show the standard user bottom navigation (admin has its own tabs)
   if (isAdminMode) return null;
 
   const navItems: { tab: ActiveTab; label: string; icon: React.ReactNode; isCenter?: boolean }[] = [
@@ -39,7 +38,7 @@ export const BottomNav: React.FC = () => {
   ];
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-40 bg-[#320912]/95 backdrop-blur-md border-t border-[#D4A017]/30 shadow-2xl safe-area-pb">
+    <nav className="fixed bottom-0 left-0 right-0 z-40 bg-[#071833]/95 backdrop-blur-md border-t border-[#1E40AF]/50 shadow-2xl safe-area-pb">
       <div className="max-w-3xl mx-auto px-3 py-1 flex items-center justify-around">
         {navItems.map((item) => {
           const isActive = activeTab === item.tab;
@@ -56,15 +55,15 @@ export const BottomNav: React.FC = () => {
                 <div
                   className={`w-14 h-14 rounded-full flex items-center justify-center shadow-lg transition-all transform group-active:scale-95 ${
                     isActive
-                      ? 'bg-gradient-to-tr from-[#D4A017] via-[#F5C542] to-[#FFF8E7] text-[#320912] shadow-[#D4A017]/50 scale-105 border-2 border-[#FFF8E7]'
-                      : 'bg-gradient-to-tr from-[#6B1524] to-[#4A0E18] text-[#F8E7B0] border-2 border-[#D4A017]/60 hover:border-[#F5C542]'
+                      ? 'bg-gradient-to-tr from-[#1D4ED8] via-[#2563EB] to-[#38BDF8] text-white shadow-[#1D4ED8]/60 scale-105 border-2 border-[#38BDF8]'
+                      : 'bg-gradient-to-tr from-[#0D2E68] to-[#0A224E] text-[#93C5FD] border-2 border-[#1E40AF]/70 hover:border-[#38BDF8]'
                   }`}
                 >
-                  <Sparkles className="w-7 h-7 animate-pulse" />
+                  <Sparkles className="w-7 h-7 animate-pulse text-white" />
                 </div>
                 <span
                   className={`text-[10px] font-bold tracking-wider mt-1 ${
-                    isActive ? 'text-[#F5C542]' : 'text-[#F8E7B0]/70'
+                    isActive ? 'text-[#38BDF8]' : 'text-blue-300/80'
                   }`}
                 >
                   {item.label}
@@ -82,8 +81,8 @@ export const BottomNav: React.FC = () => {
                   setUserSubView('DASHBOARD');
                 }
               }}
-              className={`flex flex-col items-center justify-center py-2 px-3 min-w-[56px] min-h-[44px] rounded-xl transition-all ${
-                isActive ? 'text-[#F5C542]' : 'text-[#F8E7B0]/60 hover:text-[#FFF8E7]'
+              className={`flex flex-col items-center justify-center py-2 px-3 min-w-[56px] min-h-[44px] rounded-xl transition-all cursor-pointer ${
+                isActive ? 'text-[#38BDF8]' : 'text-blue-300/60 hover:text-white'
               }`}
             >
               <div
@@ -97,7 +96,7 @@ export const BottomNav: React.FC = () => {
                 {item.label}
               </span>
               {isActive && (
-                <div className="w-1.5 h-1.5 rounded-full bg-[#D4A017] mt-0.5 shadow-sm shadow-[#D4A017]" />
+                <div className="w-1.5 h-1.5 rounded-full bg-[#38BDF8] mt-0.5 shadow-sm shadow-[#38BDF8]" />
               )}
             </button>
           );

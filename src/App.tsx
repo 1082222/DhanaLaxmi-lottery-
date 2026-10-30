@@ -1,7 +1,7 @@
 /**
- * DHANALAXMI LOTTERY - Premium Mobile-First Web Application
- * Complete offline-first lottery system with 3-digit draw, wallet management,
- * results declaration, winner celebrations, and admin governance portal.
+ * THAILAND LOTTERY RESULT - Official Mobile-First Web Application
+ * Complete lottery system with 3-digit draw, multi-currency wallet management,
+ * live results declaration, digital receipts, and governance portal.
  */
 
 import React from 'react';
@@ -31,7 +31,7 @@ const MainLayout: React.FC = () => {
   // If in Admin Mode, show full-featured Admin Dashboard
   if (isAdminMode) {
     return (
-      <div className="min-h-screen bg-[#171114] text-[#FFF8E7] selection:bg-[#D4A017] selection:text-[#320912]">
+      <div className="min-h-screen bg-[#050E1D] text-[#F0F7FF] selection:bg-[#2563EB] selection:text-white">
         <AdminDashboard />
         <ToastContainer />
       </div>
@@ -63,9 +63,9 @@ const MainLayout: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#171114] text-[#FFF8E7] flex flex-col items-center selection:bg-[#D4A017] selection:text-[#320912]">
+    <div className="min-h-screen bg-[#030A16] text-[#F0F7FF] flex flex-col items-center selection:bg-[#2563EB] selection:text-white">
       {/* Mobile-first centered frame container */}
-      <div className="w-full max-w-lg min-h-screen flex flex-col bg-[#1f0a0f] border-x border-[#7F1D2D]/30 shadow-2xl relative">
+      <div className="w-full max-w-lg min-h-screen flex flex-col bg-[#07152B] border-x border-[#1E3A8A]/40 shadow-2xl relative">
         <Header />
 
         <main className="flex-1 px-4 pt-3 overflow-y-auto">

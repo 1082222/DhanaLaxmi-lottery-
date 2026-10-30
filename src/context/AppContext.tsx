@@ -147,7 +147,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   // Initial load
   useEffect(() => {
     // Restore user session if previously logged in
-    const savedUserId = localStorage.getItem('dhanalaxmi_active_user_id');
+    const savedUserId = localStorage.getItem('thailand_lottery_user_id') || localStorage.getItem('dhanalaxmi_active_user_id');
     if (savedUserId) {
       const user = dbService.getUser(savedUserId);
       if (user) {
@@ -156,17 +156,19 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         setWallet(dbService.getWallet(user.id));
         setNotifications(dbService.getNotifications(user.id));
       } else {
+        localStorage.removeItem('thailand_lottery_user_id');
         localStorage.removeItem('dhanalaxmi_active_user_id');
       }
     }
 
     // Restore admin session if previously logged in
-    const savedAdminId = localStorage.getItem('dhanalaxmi_active_admin_id');
+    const savedAdminId = localStorage.getItem('thailand_lottery_admin_id') || localStorage.getItem('dhanalaxmi_active_admin_id');
     if (savedAdminId) {
       const admin = dbService.getAdmins().find((a) => a.id === savedAdminId);
       if (admin) {
         setCurrentAdmin(admin);
       } else {
+        localStorage.removeItem('thailand_lottery_admin_id');
         localStorage.removeItem('dhanalaxmi_active_admin_id');
       }
     }
@@ -187,10 +189,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     const adminRes = dbService.loginAdmin(mobileOrUsername, password);
     if (adminRes.success && adminRes.admin) {
       setCurrentAdmin(adminRes.admin);
-      localStorage.setItem('dhanalaxmi_active_admin_id', adminRes.admin.id);
+      localStorage.setItem('thailand_lottery_admin_id', adminRes.admin.id);
       setIsAdminMode(true);
       setIsAuthModalOpen(false);
-      showToast('Admin Logged In! Welcome to Dhanalaxmi Admin Portal.', 'success');
+      showToast('Admin Logged In! Welcome to Thailand Lottery Result Admin Portal.', 'success');
       return { success: true };
     }
 
@@ -198,7 +200,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     const res = dbService.loginUser(mobileOrUsername, password);
     if (res.success && res.user) {
       setCurrentUser(res.user);
-      localStorage.setItem('dhanalaxmi_active_user_id', res.user.id);
+      localStorage.setItem('thailand_lottery_user_id', res.user.id);
       setSelectedCountry(res.user.country);
       setIsAuthModalOpen(false);
       setIsAdminMode(false);
@@ -221,7 +223,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     const res = dbService.registerUser(params);
     if (res.success && res.user) {
       setCurrentUser(res.user);
-      localStorage.setItem('dhanalaxmi_active_user_id', res.user.id);
+      localStorage.setItem('thailand_lottery_user_id', res.user.id);
       setSelectedCountry(res.user.country);
       setIsAuthModalOpen(false);
       setIsAdminMode(false);
@@ -236,6 +238,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   };
 
   const logout = () => {
+    localStorage.removeItem('thailand_lottery_user_id');
     localStorage.removeItem('dhanalaxmi_active_user_id');
     setCurrentUser(null);
     setWallet(null);
@@ -248,7 +251,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     const res = dbService.loginAdmin(username, password);
     if (res.success && res.admin) {
       setCurrentAdmin(res.admin);
-      localStorage.setItem('dhanalaxmi_active_admin_id', res.admin.id);
+      localStorage.setItem('thailand_lottery_admin_id', res.admin.id);
       setIsAdminMode(true);
       setIsAuthModalOpen(false);
       showToast('Admin logged in successfully.', 'success');
@@ -260,6 +263,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   };
 
   const adminLogout = () => {
+    localStorage.removeItem('thailand_lottery_admin_id');
     localStorage.removeItem('dhanalaxmi_active_admin_id');
     setCurrentAdmin(null);
     setIsAdminMode(false);
